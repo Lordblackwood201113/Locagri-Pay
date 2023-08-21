@@ -1,0 +1,10 @@
+deta==1.2.0
+pandas==1.5.3
+pygwalker==0.3.3
+python-dotenv==1.0.0
+qrcode==7.4.2
+reportlab==4.0.4
+streamlit==1.25.0
+streamlit_authenticator==0.2.2
+streamlit_modal==0.1.0
+streamlit-aggrid
