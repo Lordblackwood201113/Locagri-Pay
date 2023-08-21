@@ -106,8 +106,15 @@ def app(name, contact, compte) :
                     modal.close()
                     
         if st.sidebar.button("Télécharger le reçu") :
-            rec = "reçu {}.pdf".format(uuid_str)
-            show_pdf(rec)
+            try: uuid_str
+            except NameError: uuid_str = None
+            
+            if uuid_str is None :
+                st.warning('Aucun reçu disponible', icon="⚠️")
+            else :
+                rec = "reçu {}.pdf".format(uuid_str)
+                show_pdf(rec)
+                uuid_str = None
     
     if compte == 'administrateur' :
         
