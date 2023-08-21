@@ -114,7 +114,6 @@ def app(name, contact, compte) :
             else :
                 rec = "reçu {}.pdf".format(uuid_str)
                 show_pdf(rec)
-                uuid_str = None
     
     if compte == 'administrateur' :
         
