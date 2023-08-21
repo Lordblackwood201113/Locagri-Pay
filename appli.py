@@ -79,7 +79,7 @@ def app(name, contact, compte) :
                 st.markdown(attention, unsafe_allow_html=True)
                 message = "<span style='font-size:18px; background-color : green'>Total : {} FCFA</span>".format(total)
                 components.html(message, height=50)
-                close = st.button("Confirmez")
+                close = st.button("J'accepte")
                 uuid_al = uuid.uuid4()
                 uuid_str = str(uuid_al)
                 if close :
@@ -105,7 +105,7 @@ def app(name, contact, compte) :
                             "stat" : 'En cours'})
                     modal.close()
                     
-        if st.sidebar.button("Télécharger") :
+        if st.sidebar.button("Télécharger le reçu") :
             rec = "reçu {}.pdf".format(uuid_str)
             show_pdf(rec)
     
