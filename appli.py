@@ -141,8 +141,9 @@ def app(name, contact, compte) :
         
         df = data['data']
         
-        pyg_html = pyg.walk(df, return_html=True)
-        components.html(pyg_html, height=1000, scrolling=True)
+        with st.expander("⏰ VISUALISATION & GRAPHIQUE "):
+            pyg_html = pyg.walk(df, return_html=True)
+            components.html(pyg_html, height=1000, scrolling=True)
 
         if st.button("Sauvegarder") :
             sauvegarder(data, db)
