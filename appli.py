@@ -20,6 +20,9 @@ import pygwalker as pyg
 
 
 def app(name, contact, compte) :
+        
+    sucess = None
+    
 
     
     image_path = 'logo-locagri1.png'
@@ -40,6 +43,8 @@ def app(name, contact, compte) :
     deta = Deta(DETA_KEY_APP)
 
     db = deta.Base("example-db")
+    
+    
 
     if compte == 'utilisateur' :
         col1 = st.columns(1)
@@ -56,13 +61,14 @@ def app(name, contact, compte) :
                 nom_technicien = st.text_input("Nom et prénoms du technicien ", value= name, disabled=True)
                 numero_technicien = st.text_input("Contact du technicien ", value= contact, disabled=True)
             with st.expander("Détail de la Transaction"):
+                variete = st.text_input("Variété de riz", help="Exemple : GT11")
                 prix_achat = st.number_input("Prix d'achat (FCFA)", value = 150, max_value= 250, help = "Prix d'achat de 1 kilogramme en FCFA")
                 qt_achat = st.number_input("Quantité total acheté (kg)", help = "La quantité total de riz acheté en kg", min_value=0)
                 total = prix_achat * qt_achat
             with st.expander("Information Producteur"):
                 nom_producteur = st.text_input("Nom et prénoms du producteur", help="Noms et prénoms du producteur")
                 numero_producteur = st.text_input("Conatct du producteur", value = "+225", help= "Contact Mobile money")
-                moy_paie = st.selectbox("Méthode de paiement", options=["Orange money", "MTN money", "Moov money", "Wave", "Cash"], help="Méthode de paiment mobile money")
+                moy_paie = st.selectbox("Méthode de paiement", options=["Orange money", "MTN money", "Moov money", "Wave", "Cash", 'Crédit'], help="Méthode de paiment mobile money")
             open_modal = st.form_submit_button("ACHETER")
             
             
@@ -79,21 +85,23 @@ def app(name, contact, compte) :
                 st.markdown(attention, unsafe_allow_html=True)
                 message = "<span style='font-size:18px; background-color : green'>Total : {} FCFA</span>".format(total)
                 components.html(message, height=50)
-                close = st.button("J'accepte")
+                close = st.button("Confirmez")
                 uuid_al = uuid.uuid4()
                 uuid_str = str(uuid_al)
                 if close :
                     # Générer un UUID version 4 (aléatoire)
                     
                     pdf_buffer = BytesIO()
-                    receipt (uuid_str, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite)
+                    receipt (uuid_str, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete)
                     pdf_buffer.seek(0)
                     b64_pdf = base64.b64encode(pdf_buffer.read()).decode("utf-8")
+                    
                     
                     db.put({"key" : uuid_str,
                             "date" : str(date),
                             "time" : str(time),
                             "localite" : localite,
+                            "variete " : variete,
                             "nom_technicien" : nom_technicien,
                             "numero_technicien" : numero_technicien,
                             "nom_producteur": nom_producteur,
@@ -103,9 +111,17 @@ def app(name, contact, compte) :
                             "qt_achat" : qt_achat,
                             "total" : total,
                             "stat" : 'En cours'})
+                    sucess = True 
                     modal.close()
+        
+        if sucess == True :
+            st.success("Transaction effectuée", icon= "✅")
+            sucess = False
+            
+            
                     
-        if st.sidebar.button("Télécharger le reçu") :
+        if st.sidebar.button("Télécharger") :
+            
             try: uuid_str
             except NameError: uuid_str = None
             
@@ -113,10 +129,14 @@ def app(name, contact, compte) :
                 st.warning('Aucun reçu disponible', icon="⚠️")
             else :
                 rec = "reçu {}.pdf".format(uuid_str)
+                data_dive = detadrive()
+                data_dive.put(rec, path= rec)
                 show_pdf(rec)
-    
+                st.success("PDF charger avec succès", icon="⏰")
+                
+
     if compte == 'administrateur' :
-        
+
         db_content = db.fetch().items
         df = pd.DataFrame(db_content)
 
@@ -133,11 +153,13 @@ def app(name, contact, compte) :
             'date' : ( 'Date' , { 'width' : 150 }), 
             'time' : ( 'Heure' , { 'width' : 150 }),
             'localite' : ( 'Localité' , { 'width' : 150 }),
+            "variete" : ( 'Variété' , { 'width' : 150 }),
             'nom_technicien' : ( 'Nom du technicien' , { 'width' : 150 }), 
             'numero_technicien' : ( 'Numéro du technicien' , { 'width' :150 }), 
             'nom_producteur' : ( 'Nom du producteur' , { 'width' : 150 }), 
             'numero_producteur' : ( 'Numéro du producteur' , { 'width' :150 }),
             'moy_paie' : ( 'Méthode de paiement' , { 'width' : 150 }),
+            'variete' : ( 'Variété' , { 'width' : 150 }),
             'prix_achat' : ( "Prix d'achat (FCFA)" , { 'width' : 150 }),
             'qt_achat' : ( "Quantité acheté (kg)" , { 'width' : 150 }),
             'total' : ( "Coût total (FCFA)" , { 'width' : 150 }), 
@@ -146,14 +168,12 @@ def app(name, contact, compte) :
         data = dynamic (formatter, df)
         
         df = data['data']
-        
         with st.expander("⏰ VISUALISATION & GRAPHIQUE "):
             pyg_html = pyg.walk(df, return_html=True)
             components.html(pyg_html, height=1000, scrolling=True)
 
         if st.button("Sauvegarder") :
             sauvegarder(data, db)
-
 
 
         

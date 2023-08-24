@@ -17,7 +17,7 @@ from agstyler import PINLEFT, draw_grid, highlight
 from connexion import database
 
 
-st.set_page_config(layout="wide", page_title = "Locagri Pay", page_icon= ":evergreen_tree:")
+st.set_page_config(layout="wide", page_title = "Locagri RicePay", page_icon= ":evergreen_tree:")
 
 authentication_status = False
 
@@ -52,9 +52,9 @@ if authentication_status == False :
         
         contact = config['credentials']['usernames'][str(username)]['contact']
         compte = config['credentials']['usernames'][str(username)]['compte']
-        st.sidebar.title("Locagri Pay")
+        st.sidebar.title("Locagri RicePay")
         st.sidebar.image(image_path, use_column_width=True)
-        st.sidebar.write(f'Bienvenue *{name}*')
+        st.write(f'Bienvenue *{name}*')
         authenticator.logout('Déconnexion', 'sidebar')
         placeholder.empty()
         app(name, contact, compte)

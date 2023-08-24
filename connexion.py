@@ -7,6 +7,18 @@ from agstyler import PINLEFT, draw_grid, highlight
 import pandas as pd
 
 
+def detadrive() :
+    
+    DETA_KEY_DRIVE = "a0sfhtl3z2p_3THoC2Q5doMj9Huf8wPsC2UiWBseUdas"
+    
+    deta = Deta(DETA_KEY_DRIVE)
+    
+    db = deta.Drive("receipt")
+    
+    return db
+
+    
+
 def database() :
     #load_dotenv(".env")
     #DETA_KEY = os.getenv("DETA_KEY")

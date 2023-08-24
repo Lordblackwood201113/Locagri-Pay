@@ -3,12 +3,13 @@ from reportlab.lib.units import cm, mm
 import qrcode
 
 
-def receipt (key, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite) :
+def receipt (key, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete) :
     
     data = str({"key" : key,
             "date" : str(date),
             "time" : str(time),
             "localite" : localite,
+            "variete" : variete,
             "nom_technicien" : name,
             "numero_technicien" : contact,
             "nom_producteur": nom_producteur,
@@ -59,6 +60,11 @@ def receipt (key, date, time, prix_achat, qt_achat, total, name, nom_producteur,
     y -= 30
     c.setFont("Helvetica", 18.5) 
     c.drawString(x, y, ID)
+    
+    variete = "Variété : {}".format(variete)
+    y -= 30
+    c.setFont("Helvetica", 18.5) 
+    c.drawString(x, y, variete)
 
     prix_unit = "Prix unitaire : {} FCFA/kg".format(prix_achat)
     y -= 30
