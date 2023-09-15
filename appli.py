@@ -58,7 +58,7 @@ def app(name, contact, compte) :
                 nom_technicien = st.text_input("Nom et prénoms du technicien ", value= name, disabled=True)
                 numero_technicien = st.text_input("Contact du technicien ", value= contact, disabled=True)
             with st.expander("Détail de la Transaction"):
-                variete = st.text_input("Variété de riz", help="Exemple : GT11")
+                variete = st.selectbox("Variété de riz", options=["C26", "CY2", "AIR BURKINA", "JT11", "WITTA9"], help="Variété de riz acheté")
                 prix_achat = st.number_input("Prix d'achat (FCFA)", value = 150, max_value= 250, help = "Prix d'achat de 1 kilogramme en FCFA")
                 qt_achat = st.number_input("Quantité total acheté (kg)", help = "La quantité total de riz acheté en kg", min_value=0)
                 total = prix_achat * qt_achat
