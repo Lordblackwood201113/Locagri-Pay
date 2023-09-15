@@ -28,8 +28,6 @@ def database() :
 
     db = deta.Base("example")
 
-    db = deta.Base("example")
-
     config = db.fetch().items
 
     config = config[0]

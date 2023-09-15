@@ -36,8 +36,10 @@ def draw_grid(
         groupable=False,
         editable=True,
         wrapText=wrap_text,
-        autoHeight=auto_height
+        autoHeight=auto_height,
+        
     )
+    
     
     gb.configure_pagination(enabled=False)
 
@@ -45,7 +47,7 @@ def draw_grid(
         gb.configure_grid_options(**grid_options)
 
     for latin_name, (cyr_name, style_dict) in formatter.items():
-        gb.configure_column(latin_name, header_name=cyr_name, **style_dict)
+        gb.configure_column(latin_name, header_name=cyr_name, **style_dict, headerCheckboxSelection = True)
 
     gb.configure_selection(selection_mode=selection, use_checkbox=use_checkbox)
 

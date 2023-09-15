@@ -17,14 +17,11 @@ import base64
 from io import BytesIO
 from pdf import show_pdf
 import pygwalker as pyg
+from requete import requete
 
 
 def app(name, contact, compte) :
-        
-    sucess = None
-    
 
-    
     image_path = 'logo-locagri1.png'
     st.sidebar.title("Contacts")
     st.sidebar.info(
@@ -75,7 +72,6 @@ def app(name, contact, compte) :
         modal = Modal(title="Locagri Pay", key="2289")
 
         if open_modal:
-            st.success("OK")
             modal.open()
 
         if modal.is_open():
@@ -90,13 +86,15 @@ def app(name, contact, compte) :
                 uuid_str = str(uuid_al)
                 if close :
                     # Générer un UUID version 4 (aléatoire)
-                    
+                    a = 1 
                     pdf_buffer = BytesIO()
                     receipt (uuid_str, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete)
+                    if (a == 1) : 
+                        requete(total, qt_achat, prix_achat)
+                        a = 0
                     pdf_buffer.seek(0)
                     b64_pdf = base64.b64encode(pdf_buffer.read()).decode("utf-8")
-                    
-                    
+
                     db.put({"key" : uuid_str,
                             "date" : str(date),
                             "time" : str(time),
@@ -113,13 +111,7 @@ def app(name, contact, compte) :
                             "stat" : 'En cours'})
                     sucess = True 
                     modal.close()
-        
-        if sucess == True :
-            st.success("Transaction effectuée", icon= "✅")
-            sucess = False
-            
-            
-                    
+
         if st.sidebar.button("Télécharger") :
             
             try: uuid_str
@@ -167,18 +159,19 @@ def app(name, contact, compte) :
 
         data = dynamic (formatter, df)
         
-        df = data['data']
-        with st.expander("⏰ VISUALISATION & GRAPHIQUE "):
-            pyg_html = pyg.walk(df, return_html=True)
-            components.html(pyg_html, height=1000, scrolling=True)
+        df = data['selected_rows']
+        
+        df = pd.DataFrame(df)
+        st.dataframe(df)
+        
+        if st.sidebar.button('Télécharger'):
+            df.to_excel("output.xlsx")
+        #with st.expander("⏰ VISUALISATION & GRAPHIQUE "):
+            #pyg_html = pyg.walk(df, return_html=True)
+            #components.html(pyg_html, height=1000, scrolling=True)
 
         if st.button("Sauvegarder") :
             sauvegarder(data, db)
-
-
-        
-
-            
 
 
     
