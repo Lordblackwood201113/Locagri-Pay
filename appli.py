@@ -41,8 +41,13 @@ def app(name, contact, compte) :
 
     db = deta.Base("example-db")
     
+    produit = {
+        "C26" : "6482761c1cbee308d1f23ed5",
+        "CY2" : "648314bf1cbee308d1f23edb",
+        "AIR BURKINA" : "64898b7cb8096f1c60731872",
+        "JT11" : "6492ce64b8096f1c60731899",
+    }
     
-
     if compte == 'utilisateur' :
         col1 = st.columns(1)
 
@@ -89,8 +94,9 @@ def app(name, contact, compte) :
                     a = 1 
                     pdf_buffer = BytesIO()
                     receipt (uuid_str, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete)
-                    if (a == 1) : 
-                        requete(total, qt_achat, prix_achat)
+                    if (a == 1) :
+                        variete = produit[variete] 
+                        requete(total, qt_achat, prix_achat, variete)
                         a = 0
                     pdf_buffer.seek(0)
                     b64_pdf = base64.b64encode(pdf_buffer.read()).decode("utf-8")
@@ -176,4 +182,3 @@ def app(name, contact, compte) :
 
     
     
-
