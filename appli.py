@@ -70,7 +70,7 @@ def app(name, contact, compte) :
             with st.expander("Information Producteur"):
                 nom_producteur = st.text_input("Nom et prénoms du producteur", help="Noms et prénoms du producteur")
                 numero_producteur = st.text_input("Conatct du producteur", value = "+225", help= "Contact Mobile money")
-                moy_paie = st.selectbox("Méthode de paiement", options=["Orange money", "MTN money", "Moov money", "Wave", "Cash", 'Crédit'], help="Méthode de paiment mobile money")
+                moy_paie = st.selectbox("Méthode de paiement", options=["Orange money", "MTN money", "Moov money", "Wave"], help="Méthode de paiment mobile money")
             open_modal = st.form_submit_button("ACHETER")
             
             
@@ -96,7 +96,7 @@ def app(name, contact, compte) :
                     receipt (uuid_str, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete)
                     if (a == 1) :
                         variete = produit[variete] 
-                        requete(total, qt_achat, prix_achat, variete)
+                        #requete(total, qt_achat, prix_achat, variete)
                         a = 0
                     pdf_buffer.seek(0)
                     b64_pdf = base64.b64encode(pdf_buffer.read()).decode("utf-8")
@@ -166,11 +166,10 @@ def app(name, contact, compte) :
         data = dynamic (formatter, df)
         
         df = data['selected_rows']
-        
         df = pd.DataFrame(df)
-        st.dataframe(df)
-        
+               
         if st.sidebar.button('Télécharger'):
+            df = df.iloc[:, 1:15]
             df.to_excel("output.xlsx")
         #with st.expander("⏰ VISUALISATION & GRAPHIQUE "):
             #pyg_html = pyg.walk(df, return_html=True)
@@ -182,3 +181,4 @@ def app(name, contact, compte) :
 
     
     
+

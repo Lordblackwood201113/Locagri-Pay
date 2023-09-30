@@ -1,7 +1,7 @@
 import streamlit_authenticator as stauth
 from deta import Deta
 
-hashed_passwords = stauth.Hasher(['Franck201113', 'administrateur', 'technicien']).generate()
+hashed_passwords = stauth.Hasher(['Franck201113', 'administrateur', 'technicien2000','L0pezz1994']).generate()
 
 data = {
     'credentials': {
@@ -27,6 +27,14 @@ data = {
                 'compte' : 'utilisateur',
                 'password': hashed_passwords[2] 
             },
+            'Prince_Ahoulou': {
+                'email': 'ahouloup684@gmail.com',
+                'name': 'AHOULOU PRINCE ROMARIC ELIDJE',
+                'contact' : '+225 07 79 86 14 85',
+                'compte' : 'utilisateur',
+                'password': hashed_passwords[3] 
+            },
+            
         }
     },
     'cookie': {
@@ -51,6 +59,6 @@ deta = Deta(DETA_KEY)
 
 db = deta.Base("example")
 
-db.update(key = "1m0za4838jry", updates = data)
+db.update(key = "oq5c0cjj70jn", updates = data)
 
 

@@ -54,7 +54,7 @@ if authentication_status == False :
         compte = config['credentials']['usernames'][str(username)]['compte']
         st.sidebar.title("Locagri RicePay")
         st.sidebar.image(image_path, use_column_width=True)
-        st.write(f'Bienvenue *{name}*')
+        st.sidebar.write(f'Bienvenue *{name}*')
         authenticator.logout('Déconnexion', 'sidebar')
         placeholder.empty()
         app(name, contact, compte)

@@ -1,7 +1,7 @@
 import requests
 from num2words import num2words
 
-def requete (total, qt_achat, prix_achat) : 
+def requete (total, qt_achat, prix_achat, variete) : 
 
     data = {
         'IdPlanteur' : '648882f7b8096f1c60731862' ,
@@ -24,7 +24,7 @@ def requete (total, qt_achat, prix_achat) :
         'Originemv' : r.text,
         'Sensmvt' : 'Entree',
         'manu' : 'non',
-        'IdVariete' : '64898b7cb8096f1c60731872',
+        'IdVariete' : variete,
         'Quantite' : str(qt_achat),
         'Coutunitaire' : str(prix_achat),
         'Entrepot' : ' ',

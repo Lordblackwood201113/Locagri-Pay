@@ -1,0 +1,38 @@
+[
+
+    {
+        "_id": "64830ba91cbee308d1f23eda",
+        "NomProduit": "C26 ",
+        "IdVariete": "6482761c1cbee308d1f23ed5",
+        "NatureProduit": "matiere premiere",
+        "DateCreationProduit": "9-6-2023 11:23",
+        "__v": 0
+    },
+    {
+        "_id": "648886fdb8096f1c60731865",
+        "NomProduit": "CY2",
+        "IdVariete": "648314bf1cbee308d1f23edb",
+        "NatureProduit": "matiere premiere",
+        "DateCreationProduit": "13-6-2023 15:10",
+        "ImageProduit": "uploads/locariz-IMG_20230613_185214.jpg",
+        "__v": 0
+    },
+    {
+        "_id": "6489cd8cb8096f1c60731875",
+        "NomProduit": "AIR BURKINA",
+        "IdVariete": "64898b7cb8096f1c60731872",
+        "NatureProduit": "matiere premiere",
+        "DateCreationProduit": "14-6-2023 14:24",
+        "ImageProduit": "uploads/locariz-IMG_20230613_185214.jpg",
+        "__v": 0
+    },
+
+    {
+        "_id": "64c8efba0b7a0b102e417f9b",
+        "NomProduit": "JT11",
+        "IdVariete": "6492ce64b8096f1c60731899",
+        "NatureProduit": "matiere premiere",
+        "DateCreationProduit": "1-8-2023 11:42",
+        "__v": 0
+    }
+]
