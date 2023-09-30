@@ -168,7 +168,7 @@ def app(name, contact, compte) :
         df = data['selected_rows']
         df = pd.DataFrame(df)
         df = df.iloc[:, 1:15]
-        @st.cache
+        st.cache
         def convert_df(df):
             return df.to_csv().encode('utf-8')
                
