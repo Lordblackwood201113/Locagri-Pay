@@ -172,7 +172,7 @@ def app(name, contact, compte) :
         def convert_df(df):
             return df.to_csv().encode('utf-8')
                
-        st.sidebar.download_button('Télécharger', convert_df(df), "Paiement_Julaya {}.csv".format(str(datetime.datetime.now().date())),"text/csv",key='browser-data')
+        st.sidebar.download_button('Télécharger', convert_df(df), "Paiement_Riz-Julaya.csv","text/csv",key='browser-data')
             #df = df.iloc[:, 1:15]
             #df.to_excel("output.xlsx")
         #with st.expander("⏰ VISUALISATION & GRAPHIQUE "):
