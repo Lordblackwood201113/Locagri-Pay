@@ -167,10 +167,14 @@ def app(name, contact, compte) :
         
         df = data['selected_rows']
         df = pd.DataFrame(df)
+        df = df.iloc[:, 1:15]
+        @st.cache
+        def convert_df(df):
+            return df.to_csv().encode('utf-8')
                
-        if st.sidebar.button('Télécharger'):
-            df = df.iloc[:, 1:15]
-            df.to_excel("output.xlsx")
+        st.sidebar.download_button('Télécharger', convert_df(df), "Paiement_Julaya.csv","text/csv",key='browser-data')
+            #df = df.iloc[:, 1:15]
+            #df.to_excel("output.xlsx")
         #with st.expander("⏰ VISUALISATION & GRAPHIQUE "):
             #pyg_html = pyg.walk(df, return_html=True)
             #components.html(pyg_html, height=1000, scrolling=True)
