@@ -96,7 +96,7 @@ def app(name, contact, compte) :
                     receipt (uuid_str, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete)
                     if (a == 1) :
                         variete = produit[variete] 
-                        #requete(total, qt_achat, prix_achat, variete)
+                        requete(total, qt_achat, prix_achat, variete)
                         a = 0
                     pdf_buffer.seek(0)
                     b64_pdf = base64.b64encode(pdf_buffer.read()).decode("utf-8")
