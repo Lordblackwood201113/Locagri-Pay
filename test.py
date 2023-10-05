@@ -3,7 +3,7 @@ from reportlab.lib.units import cm, mm
 import qrcode
 
 
-def receipt (key, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete) :
+def receipt (key, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete, compte) :
     
     data = str({"key" : key,
             "date" : str(date),
@@ -33,10 +33,16 @@ def receipt (key, date, time, prix_achat, qt_achat, total, name, nom_producteur,
     img.save('qrcode.jpg')
     x = 20
     y = 650
-    title = "reçu {}.pdf".format(key)
-    c = canvas.Canvas(title, pagesize=(169.3*mm, 275.9*mm))
-    c.setFont("Helvetica-Bold", 33.5) 
-    c.drawString(x, y, "Reçu de Transaction")
+    if (compte == "administrateur") :
+        title = "reçu {}.pdf".format(key)
+        c = canvas.Canvas(title, pagesize=(169.3*mm, 275.9*mm))
+        c.setFont("Helvetica-Bold", 33.5) 
+        c.drawString(x, y, "Reçu de Transaction")
+    else :
+        title = "Proforma {}.pdf".format(key)
+        c = canvas.Canvas(title, pagesize=(169.3*mm, 275.9*mm))
+        c.setFont("Helvetica-Bold", 33.5) 
+        c.drawString(x, y, "Proforma de Transaction")
 
     dat = "Date d'édition : {} à {}".format(date.strftime("%d/%m/%Y"), time)
     y -= 50
