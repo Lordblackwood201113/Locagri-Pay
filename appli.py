@@ -70,7 +70,7 @@ def app(name, contact, compte) :
             with st.expander("Information Producteur"):
                 nom_producteur = st.text_input("Nom et prénoms du producteur", help="Noms et prénoms du producteur")
                 numero_producteur = st.text_input("Conatct du producteur", value = "+225", help= "Contact Mobile money")
-                moy_paie = st.selectbox("Méthode de paiement", options=["Orange money", "MTN money", "Moov money", "Wave"], help="Méthode de paiment mobile money")
+                moy_paie = st.selectbox("Méthode de paiement", options=["Orange money", "MTN money", "Moov money", "Wave","Cash"], help="Méthode de paiment mobile money")
             open_modal = st.form_submit_button("ACHETER")
             
             
