@@ -57,8 +57,8 @@ def app(name, contact, compte) :
         with st.form( key = "LOCAGRI PAY", clear_on_submit= True):
             st.image(image_path, use_column_width=True)
             with st.expander("Information Générale"):
-                date = st.date_input("Date d'aujourd'hui", value=date_actuelle, format="DD/MM/YYYY", disabled=True)
-                time = st.time_input("Heure actuelle", value = heure_actuelle, disabled=True)
+                date = st.date_input("Date d'aujourd'hui", value=date_actuelle, format="DD/MM/YYYY", disabled=False)
+                time = st.time_input("Heure actuelle", value = heure_actuelle, disabled=False)
                 localite = st.text_input("Localité ", help="Le nom du village o u de la ville")
                 nom_technicien = st.text_input("Nom et prénoms du technicien ", value= name, disabled=True)
                 numero_technicien = st.text_input("Contact du technicien ", value= contact, disabled=True)
@@ -93,10 +93,10 @@ def app(name, contact, compte) :
                     # Générer un UUID version 4 (aléatoire)
                     a = 1 
                     pdf_buffer = BytesIO()
-                    receipt (uuid_str, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete)
+                    receipt (uuid_str, date, time, prix_achat, qt_achat, total, name, nom_producteur, numero_producteur, moy_paie, contact, localite, variete, compte)
                     if (a == 1) :
                         variete = produit[variete] 
-                        requete(total, qt_achat, prix_achat, variete)
+                        #requete(total, qt_achat, prix_achat, variete)
                         a = 0
                     pdf_buffer.seek(0)
                     b64_pdf = base64.b64encode(pdf_buffer.read()).decode("utf-8")
@@ -126,12 +126,18 @@ def app(name, contact, compte) :
             if uuid_str is None :
                 st.warning('Aucun reçu disponible', icon="⚠️")
             else :
-                rec = "reçu {}.pdf".format(uuid_str)
-                data_dive = detadrive()
-                data_dive.put(rec, path= rec)
-                show_pdf(rec)
-                st.success("PDF charger avec succès", icon="⏰")
-                
+                if (compte == "utilisateur") :
+                    rec = "Proforma {}.pdf".format(uuid_str)
+                    data_dive = detadrive()
+                    data_dive.put(rec, path= rec)
+                    show_pdf(rec)
+                    st.success("PDF charger avec succès", icon="⏰")
+                else :
+                    rec = "reçu {}.pdf".format(uuid_str)
+                    data_dive = detadrive()
+                    data_dive.put(rec, path= rec)
+                    show_pdf(rec)
+                    st.success("PDF charger avec succès", icon="⏰")
 
     if compte == 'administrateur' :
 
@@ -172,7 +178,7 @@ def app(name, contact, compte) :
         def convert_df(df):
             return df.to_csv().encode('utf-8')
                
-        st.sidebar.download_button('Télécharger', convert_df(df), "Paiement_Riz-Julaya.csv","text/csv",key='browser-data')
+        st.sidebar.download_button('Télécharger', convert_df(df), "Paiement_Julaya {}.csv".format(date),"text/csv",key='browser-data')
             #df = df.iloc[:, 1:15]
             #df.to_excel("output.xlsx")
         #with st.expander("⏰ VISUALISATION & GRAPHIQUE "):
