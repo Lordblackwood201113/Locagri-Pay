@@ -17,11 +17,9 @@ def requete (total, qt_achat, prix_achat, variete) :
 
     r = requests.post('https://api.locagri.digi-pme.com/users/apiv1/creatReception', data= data)
 
-    print(r.text)
-
     data_mvt = {
         'IdPlanteur' : '648882f7b8096f1c60731862' ,
-        'Originemv' : r.text,
+        'Originemvt' : r.text,
         'Sensmvt' : 'Entree',
         'manu' : 'non',
         'IdVariete' : variete,
@@ -32,5 +30,3 @@ def requete (total, qt_achat, prix_achat, variete) :
     }
     
     r = requests.post('https://api.locagri.digi-pme.com/users/apiv1/creatMouvements', data= data_mvt)
-
-    print(r.text)
