@@ -42,10 +42,11 @@ def app(name, contact, compte) :
     db = deta.Base("example-db")
     
     produit = {
-        "C26" : "6482761c1cbee308d1f23ed5",
-        "CY2" : "648314bf1cbee308d1f23edb",
-        "AIR BURKINA" : "64898b7cb8096f1c60731872",
-        "JT11" : "6492ce64b8096f1c60731899",
+        "C26" : "64830ba91cbee308d1f23eda",
+        "CY2" : "648886fdb8096f1c60731865",
+        "AIR BURKINA" : "6489cd8cb8096f1c60731875",
+        "JT11" : "64c8efba0b7a0b102e417f9b",
+        "WITTA9" : "64fc40490f61ca7095abfea2"
     }
     
     if compte == 'utilisateur' :
